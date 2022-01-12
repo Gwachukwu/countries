@@ -14,23 +14,27 @@ const Countries = ({
   handlePageClick,
 }: CountriesProps): ReactElement => {
   return (
-    <div className="countries">
-      {countries &&
-        countries.map((country: Object, index) => (
-          <CountryCard key={index} country={country} />
-        ))}
-      <ReactPaginate
-        previousLabel={"← Previous"}
-        nextLabel={"Next →"}
-        pageCount={pageCount}
-        onPageChange={handlePageClick}
-        containerClassName={"pagination"}
-        previousLinkClassName={"pagination__link"}
-        nextLinkClassName={"pagination__link"}
-        disabledClassName={"pagination__link--disabled"}
-        activeClassName={"pagination__link--active"}
-      />
-    </div>
+    <>
+      <div className="countries">
+        {countries &&
+          countries.map((country: Object, index) => (
+            <CountryCard key={index} country={country} />
+          ))}
+      </div>
+      <div className="pagination-container">
+        <ReactPaginate
+          previousLabel={"← Previous"}
+          nextLabel={"Next →"}
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination"}
+          previousLinkClassName={"pagination__link"}
+          nextLinkClassName={"pagination__link"}
+          disabledClassName={"pagination__link--disabled"}
+          activeClassName={"pagination__link--active"}
+        />
+      </div>
+    </>
   );
 };
 

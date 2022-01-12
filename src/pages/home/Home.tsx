@@ -24,8 +24,9 @@ const Home = (): ReactElement => {
 
   const handlePageClick = (e: any) => {
     const selectedPage = e.selected;
-    const offset = selectedPage + 1;
-    allCountries && setCountries(allCountries.slice(offset, offset + perPage));
+    const startIndex = selectedPage * perPage;
+    const endIndex = selectedPage * perPage + perPage;
+    allCountries && setCountries(allCountries.slice(startIndex, endIndex));
   };
 
   return (
