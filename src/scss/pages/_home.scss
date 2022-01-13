@@ -1,26 +1,65 @@
-.navbar{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+@use "../abstracts/mixins" as m;
+
+.countries-container {
+  margin: 2rem;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 1px 4px 30px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.countries {
+  @include m.flex-config(space-evenly, center, wrap, false, false);
+}
+
+.forms {
+  @include m.flex-config(space-between, center, wrap, false, false);
+  gap: 1rem;
+  padding: 1rem;
+  &_search {
+    @include m.flex-config(false, center, no-wrap, false, false);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 0.3rem;
     box-shadow: 1px 4px 30px rgba(0, 0, 0, 0.2);
-    margin-bottom: 2rem;
-    padding: 0 1rem;
-}
+    border-radius: 0.3rem;
 
-.countries{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-wrap: wrap;
-}
+    input {
+      border: none;
+      height: 1.5rem;
+      outline: none;
+      padding-left: 0.5rem;
+      width: 14rem;
 
-@media screen and (max-width: 970px){
-    .navbar{
-        header{
-            font-size: 12px;
-        }
-        div{
-            font-size: 10px;
-        }
+      &:focus {
+        outline: none;
+      }
     }
+  }
+
+  div{
+    select{
+        border-radius: 0.3rem;
+        padding: 0.5rem;
+    }
+  }
+}
+
+.mode-icon{
+margin-bottom: -2px;
+}
+
+@media screen and (max-width: 970px) {
+  .navbar {
+    header {
+      font-size: 12px;
+    }
+    div {
+      font-size: 10px;
+    }
+  }
 }

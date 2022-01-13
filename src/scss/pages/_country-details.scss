@@ -1,0 +1,33 @@
+@use "../abstracts/mixins" as m;
+
+.details{
+@include m.flex-config(space-evenly, center, wrap, false, false);
+
+&_img_container{
+    width:30%;
+   
+}
+&_img{
+    width: 100%;
+}
+
+}
+
+.back-button{
+    margin-left:3rem;
+    margin-bottom: 3rem;
+    display:block;
+    padding: 5px 10px;
+    cursor: pointer;
+
+    &_icon{
+        margin-bottom: -2px;
+        margin-right: 3px;
+    }
+}
+
+@media screen and (max-width: 970px) {
+ .details_img_container{
+     width: 80%;
+ }   
+}

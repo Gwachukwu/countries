@@ -3,7 +3,14 @@
   height: 25rem;
   margin: 0.5rem 0;
   box-shadow: 1px 4px 30px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
+  border-radius: 7px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover{
+    transform:translateY(-2%);
+  }
 
   &_image-container {
     width: 100%;
@@ -16,5 +23,10 @@
     p{
         margin: 0.3rem 0;
     }
+    &__title {
+      font-weight: bold;
+    }
   }
+ 
 }
+

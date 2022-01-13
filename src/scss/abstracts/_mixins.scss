@@ -1,0 +1,27 @@
+// Flexbox Mixin
+
+// Flexbox Mixin
+
+@mixin flex-config($justify-content: false, $align-items: false,$flex-wrap:false, $flex: false, $flex-direction: false) {
+    display: flex;
+    
+    @if $justify-content {
+      justify-content: $justify-content;
+    }
+
+    @if $flex-wrap{
+        flex-wrap: $flex-wrap;
+    }
+
+    @if $flex {
+      flex: $flex;
+    }
+    
+    @if $flex-direction {
+      flex-direction: $flex-direction;
+    }
+    
+    @if $align-items {
+      align-items: $align-items;
+    }
+  }

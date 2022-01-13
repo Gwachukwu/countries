@@ -1,11 +1,12 @@
+@use "../abstracts/mixins" as m;
+
 .pagination-container{
-    display: flex;
-    justify-content: center;
+   @include m.flex-config(center,center,false,false,false);
+   margin-left: -1rem;
 }
 
 .pagination {
-    display: flex;
-    justify-content: space-between;
+  @include m.flex-config(center,center,false,false,false);
     list-style: none;
     cursor: pointer;
     margin: 3rem;
