@@ -5,7 +5,7 @@ import * as GoIcons from "react-icons/go";
 
 type CountriesProps = {
   countries: Array<any>;
-  setCountries:(event: any)=> void;
+  setCountries: (event: any) => void;
   allCountries: Array<any> | null;
   setAllCountries: (event: any) => void;
   pageCount: number;
@@ -13,6 +13,7 @@ type CountriesProps = {
   setPageCount: (event: any) => void;
   perPage: number;
   resetCountries: Array<any> | null;
+  darkMode: Boolean;
 };
 
 const Countries = ({
@@ -24,33 +25,60 @@ const Countries = ({
   setCountries,
   setPageCount,
   perPage,
-  resetCountries
+  resetCountries,
+  darkMode,
 }: CountriesProps): ReactElement => {
-
   const handleRegionChange = (e: any) => {
     const { value } = e.target;
     console.log(value);
-    
+
     if (value && resetCountries) {
-      const filtered = resetCountries.filter((country) => country.region === value);
+      const filtered = resetCountries.filter(
+        (country) => country.region === value
+      );
       setAllCountries(filtered);
       const slice = filtered.slice(0, 0 + perPage);
-        setCountries(slice);
-        setPageCount(Math.ceil(filtered.length / perPage));
+      setCountries(slice);
+      setPageCount(Math.ceil(filtered.length / perPage));
     } else {
       // if no selection return all
       setAllCountries(resetCountries);
-     if(resetCountries){
-      const slice = resetCountries.slice(0, 0 + perPage);
-      setCountries(slice);
-      setPageCount(Math.ceil(resetCountries.length / perPage));
-     } 
+      if (resetCountries) {
+        const slice = resetCountries.slice(0, 0 + perPage);
+        setCountries(slice);
+        setPageCount(Math.ceil(resetCountries.length / perPage));
+      }
     }
-    
+  };
+
+  const onSearchChange = (e: any) => {
+    const { value } = e.target;
+    const regex = new RegExp(value, "gi");
+    if (value && resetCountries) {
+      const result = resetCountries.filter((country) =>
+        country.name.match(regex)
+      );
+      setAllCountries(result);
+      const slice = result.slice(0, 0 + perPage);
+      setCountries(slice);
+      setPageCount(Math.ceil(result.length / perPage));
+    } else {
+      // if empty string
+      setAllCountries(resetCountries);
+      if (resetCountries) {
+        const slice = resetCountries.slice(0, 0 + perPage);
+        setCountries(slice);
+        setPageCount(Math.ceil(resetCountries.length / perPage));
+      }
+    }
   };
 
   return (
-    <main className="countries-container">
+    <main
+      className={`countries-container ${
+        darkMode && "countries-container-darkmode"
+      }`}
+    >
       <div className="forms">
         <div className="forms_search">
           <GoIcons.GoSearch />
@@ -59,6 +87,7 @@ const Countries = ({
             name=""
             id=""
             placeholder="Search for a country..."
+            onChange={onSearchChange}
           />
         </div>
         <div>
@@ -75,7 +104,7 @@ const Countries = ({
       <div className="countries">
         {countries &&
           countries.map((country: Object, index) => (
-            <CountryCard key={index} country={country} />
+            <CountryCard key={index} country={country} darkMode={darkMode}/>
           ))}
       </div>
       <div className="pagination-container">

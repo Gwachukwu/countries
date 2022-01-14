@@ -1,33 +1,46 @@
-import axios from "axios";
 import React, { ReactElement, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import CountryDetails from "../country_details/CountryDetails";
 import Countries from "./Countries";
-import * as BsIcons from "react-icons/bs";
+import Loading from "../../components/Loading";
+import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
+import { getCountries } from "../../redux/ducks/countries";
 
-const Home = (): ReactElement => {
-  const [allCountries, setAllCountries] = useState<Array<any> | null>(null);
+const Home = ({ darkMode }: { darkMode: Boolean }): ReactElement => {
+  const dispatch = useDispatch();
+  const fetchedCountries = useSelector(
+    (state: RootStateOrAny) => state.countries.countries
+  );
+const loading = useSelector((state: RootStateOrAny) => state.countries.loading);
+
+
+  //const [loading, setLaoding] = useState<Boolean>(true);
+  const [allCountries, setAllCountries] = useState<Array<any> | null>(
+    null
+  );
   const [countries, setCountries] = useState<Object[]>([]);
   const [pageCount, setPageCount] = useState<number>(0);
   // this gives untouched countries data
- const [resetCountries,setResetCountries] = useState<Array<any> | null>(null);
+  const [resetCountries, setResetCountries] = useState<Array<any> | null>(
+    null
+  );
 
   // number of countries per page
   const perPage: number = 12;
 
   useEffect(() => {
-    axios
-      .get("https://restcountries.com/v2/all")
-      .then((res) => {
-        const data = res.data;
-        setAllCountries(data);
-        const slice = data.slice(0, 0 + perPage);
-        setCountries(slice);
-        setPageCount(Math.ceil(data.length / perPage));
-        setResetCountries(data)
-      })
-      .catch((err) => console.log(err));
+    dispatch(getCountries());
   }, []);
+
+useEffect(() => {
+  if (fetchedCountries) {
+    setAllCountries(fetchedCountries);
+    const slice = fetchedCountries.slice(0, 0 + perPage);
+    setCountries(slice);
+    setPageCount(Math.ceil(fetchedCountries.length / perPage));
+    setResetCountries(fetchedCountries) 
+  }
+}, [fetchedCountries])
 
   const handlePageClick = (e: any) => {
     const selectedPage = e.selected;
@@ -36,16 +49,20 @@ const Home = (): ReactElement => {
     allCountries && setCountries(allCountries.slice(startIndex, endIndex));
   };
 
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (!allCountries) {
+    return (
+      <div style={{ width: "100vw", textAlign: "center" }}>
+        <p>Error, unable to load countries</p>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <nav className="navbar">
-        <header>
-          <h1>Where in the world?</h1>
-        </header>
-        <div>
-          <h4><BsIcons.BsMoon className="mode-icon"/> Dark Mode</h4>
-        </div>
-      </nav>
       <Routes>
         <Route
           path=""
@@ -60,12 +77,15 @@ const Home = (): ReactElement => {
               handlePageClick={handlePageClick}
               perPage={perPage}
               resetCountries={resetCountries}
+              darkMode={darkMode}
             />
           }
         />
         <Route
           path=":countryCode"
-          element={<CountryDetails allCountries={allCountries} />}
+          element={
+            <CountryDetails allCountries={allCountries} darkMode={darkMode} />
+          }
         />
       </Routes>
     </div>

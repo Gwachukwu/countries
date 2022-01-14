@@ -1,0 +1,14 @@
+@use "../abstracts/mixins" as m;
+
+.loading {
+  @include m.flex-config(center, center, false, false, false);
+  height: 80vh;
+
+  div {
+    width: 5rem;
+
+    img {
+      width: 100%;
+    }
+  }
+}

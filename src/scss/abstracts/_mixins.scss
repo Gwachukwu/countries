@@ -25,3 +25,8 @@
       align-items: $align-items;
     }
   }
+
+  @mixin dark-theme {
+    background-color: #000;
+    color: #fff;
+  }

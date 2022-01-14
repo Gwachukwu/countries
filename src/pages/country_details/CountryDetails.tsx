@@ -1,14 +1,15 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as BiIcons from "react-icons/bi";
 
 const CountryDetails = ({
   allCountries,
+  darkMode,
 }: {
   allCountries: Array<any> | null;
+  darkMode: Boolean;
 }) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const { countryCode } = useParams();
 
   const country = allCountries
@@ -17,10 +18,13 @@ const CountryDetails = ({
 
   return country ? (
     <>
-        <button onClick={() =>navigate("/")} className="back-button">
-          <BiIcons.BiArrowBack className="back-button_icon"/>
-          Back
-        </button>
+      <button
+        onClick={() => navigate("/")}
+        className={`back-button ${darkMode && "back-button-dark"}`}
+      >
+        <BiIcons.BiArrowBack className="back-button_icon" />
+        Back
+      </button>
       <div className="details">
         <div className="details_img_container">
           <img

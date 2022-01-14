@@ -1,7 +1,8 @@
 @use "../abstracts/mixins" as m;
 
 .details{
-@include m.flex-config(space-evenly, center, wrap, false, false);
+@include m.flex-config(space-evenly, false, wrap, false, false);
+height:100vh;
 
 &_img_container{
     width:30%;
@@ -24,6 +25,11 @@
         margin-bottom: -2px;
         margin-right: 3px;
     }
+}
+
+.back-button-dark{
+   @include m.dark-theme;
+    border: 1px solid #fff;
 }
 
 @media screen and (max-width: 970px) {

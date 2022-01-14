@@ -11,6 +11,14 @@
   box-shadow: 1px 4px 30px rgba(0, 0, 0, 0.2);
   margin-bottom: 2rem;
   padding: 0 1rem;
+
+  &_mode-switch {
+    cursor: pointer;
+  }
+}
+
+.navbar-dark {
+  box-shadow: 1px 4px 30px rgba(255, 255, 255, 0.12);
 }
 
 .countries {
@@ -41,16 +49,33 @@
     }
   }
 
-  div{
-    select{
-        border-radius: 0.3rem;
-        padding: 0.5rem;
+  div {
+    select {
+      border-radius: 0.3rem;
+      padding: 0.5rem;
     }
   }
 }
 
-.mode-icon{
-margin-bottom: -2px;
+.mode-icon {
+  margin-bottom: -2px;
+}
+
+.countries-container-darkmode {
+  .forms {
+    &_search {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    input {
+      @include m.dark-theme;
+    }
+  }
+  div {
+    select {
+      @include m.dark-theme;
+    }
+  }
 }
 
 @media screen and (max-width: 970px) {
