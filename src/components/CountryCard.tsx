@@ -5,11 +5,20 @@ type CountryType = {
   [key: string]: any;
 };
 
-const CountryCard = ({ country,darkMode }: { country: CountryType,darkMode: Boolean}): ReactElement => {
+const CountryCard = ({
+  country,
+  darkMode,
+}: {
+  country: CountryType;
+  darkMode: Boolean;
+}): ReactElement => {
   const navigate = useNavigate();
 
   return (
-    <div className={`card ${darkMode && "card-dark"}`} onClick={() => navigate(`/${country.alpha3Code}`)}>
+    <div
+      className={`card ${darkMode && "card-dark"}`}
+      onClick={() => navigate(`/${country.alpha3Code}`)}
+    >
       <div className="card_image-container">
         <img
           src={country.flag}
